@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 14, 2024 at 02:05 PM
+-- Generation Time: Nov 18, 2024 at 01:42 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -74,15 +74,37 @@ CREATE TABLE `karyawan` (
   `nama` varchar(250) NOT NULL,
   `nomor-kontak` varchar(250) NOT NULL,
   `jenis-kelamin` varchar(250) NOT NULL,
-  `jabatan` varchar(250) NOT NULL
+  `jabatan` varchar(250) NOT NULL,
+  `token` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `karyawan`
 --
 
-INSERT INTO `karyawan` (`id`, `nama`, `nomor-kontak`, `jenis-kelamin`, `jabatan`) VALUES
-(1, 'cole palmer', '+6285777380134', 'pria', 'sigma');
+INSERT INTO `karyawan` (`id`, `nama`, `nomor-kontak`, `jenis-kelamin`, `jabatan`, `token`) VALUES
+(1, 'cole palmer', '+6285777380134', 'pria', 'boss', '250508');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int NOT NULL,
+  `username` varchar(250) NOT NULL,
+  `password` varchar(250) NOT NULL,
+  `created_on` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `created_on`) VALUES
+(1, 'guest', 'guest', '2024-11-18 20:38:45'),
+(2, 'admin', 'admin', '2024-11-18 20:38:56');
 
 --
 -- Indexes for dumped tables
@@ -108,7 +130,15 @@ ALTER TABLE `gaji`
 ALTER TABLE `karyawan`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nama` (`nama`),
-  ADD UNIQUE KEY `nomor-kontak` (`nomor-kontak`);
+  ADD UNIQUE KEY `nomor-kontak` (`nomor-kontak`),
+  ADD UNIQUE KEY `token` (`token`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -131,6 +161,12 @@ ALTER TABLE `gaji`
 --
 ALTER TABLE `karyawan`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
