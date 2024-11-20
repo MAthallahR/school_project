@@ -250,10 +250,10 @@
     }
     function karyawan(){
         const token = document.getElementById('token');
+        const telp = document.getElementById('telp');
         const login = document.getElementById('login2');
         const password = document.getElementById('password'); 
         const loginadmin = document.getElementById('login1'); 
-        const telp = document.getElementById('telp');
         const form = document.getElementById('form'); 
         const input = token.querySelector('input');
         
@@ -282,12 +282,14 @@
         const password = document.getElementById('password');
         const login = document.getElementById('login1');
         const token = document.getElementById('token');
+        const telp = document.getElementById('telp');
         const loginkaryawan = document.getElementById('login2');
         const form = document.getElementById('form');
         const input = password.querySelector('input');
  
         if(token.style.display === 'block'){
         token.style.display = 'none'; 
+        telp.style.display = 'none'; 
         loginkaryawan.style.display = 'none'; 
         }
         
