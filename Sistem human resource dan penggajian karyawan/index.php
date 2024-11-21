@@ -19,8 +19,9 @@
     }
     if(isset($_POST['login2'])){
         $token = $_POST['token'];
+        $telp = $_POST['telp']; 
 
-        $sqlk = "SELECT * FROM karyawan WHERE token='$token'";
+        $sqlk = "SELECT * FROM karyawan WHERE nomortelp='$telp'";
         $resultk = $db->query($sqlk);
         if($resultk->num_rows > 0){
             $datak = $resultk->fetch_assoc();
@@ -28,9 +29,11 @@
                 $_SESSION["token"] = $datak["token"];
                 header('location: karyawan_dashboard.php');
                 exit(); 
+            }else{
+                $error = '<span class="error">token incorrect</span>';
             }
         }else{
-            $error = '<span class="error">token incorrect</span>';
+            $error = '<span class="error">number is not the employee list</span>';
         }
     }
 ?>
@@ -59,11 +62,7 @@
         border-radius: 5px;
         height: 350px;
         width: 450px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         transition: all 0.3s;
-    }
-    form:hover{
-        transform: scale(1.02);
     }
     .container{
         width: 100%;
@@ -196,44 +195,68 @@
     .buttong{
         display: flex;
         margin-top: -15px; 
-        
+    }
+    .gambar{
+        margin-right: -10px;
+        border: 5px solid white;
+        border-radius: 5px; 
+        padding: 20px; 
+        background-color: white; 
+    }
+    .gambar img{
+        width: 255px;
+        display: block; 
+        border-radius: 5px;
+    }
+    .forms{
+        display: flex;
+        transition: all 0.3s;
+
+    }
+    .forms:hover{
+        transform: scale(1.02);
     }
 </style>
 <body>
-<form action="index.php" method="post" id="form">
-    <h1 style="font-family: Arial, sans-serif;">LOGIN AS?</h1>
+<div class="forms">
+    <div class="gambar">
+        <img src="https://cdn0-production-images-kly.akamaized.net/AwEA4f95P32p5tToO6yPl_bmw4w=/800x1066/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/1206778/original/091788000_1460967229-ad159740326pictured-the-v.jpg">
+    </div>
+    <form action="index.php" method="post" id="form">
+        <h1 style="font-family: Arial, sans-serif;">LOGIN AS?</h1>
 
-    <div class="buttong">
-        <button type="button" onclick="guest()"><p class="text">Guest</p></button>
-        <button type="button" onclick="karyawan()"><p class="text">Karyawan</p></button>
-        <button type="button" onclick="admin()"><p class="text">Admin</p></button>
-    </div>
-    <div class="container" id="telp" style="display:none;">
-        <div class="ingput">
-            <input type="text" class="input" name="telp" autocomplete="off">
-            <label for="input">No Telp</label>
+        <div class="buttong">
+            <button type="button" onclick="guest()"><p class="text">Guest</p></button>
+            <button type="button" onclick="karyawan()"><p class="text">Karyawan</p></button>
+            <button type="button" onclick="admin()"><p class="text">Admin</p></button>
         </div>
-    </div>
-    <div class="container" id="token" style="display:none;">
-        <div class="ingput">
-            <input type="password" class="input" name="token" autocomplete="off">
-            <label for="input">Token</label>
+        <div class="container" id="telp" style="display:none;">
+            <div class="ingput">
+                <input type="text" class="input" name="telp" autocomplete="off">
+                <label for="input">No Telp</label>
+            </div>
         </div>
-    </div>
-    <input type="submit" value="Login" name="login2" class="login" id="login2" style="display:none;"> 
-    <div class="container" id="password" style="display:none;">
-        <div class="ingput">
-            <input type="password" class="input" name="password" autocomplete="off">
-            <label for="input">Password</label>
+        <div class="container" id="token" style="display:none;">
+            <div class="ingput">
+                <input type="password" class="input" name="token" autocomplete="off">
+                <label for="input">Token</label>
+            </div>
         </div>
-    </div>
-    <input type="submit" value="Login" name="login1" class="login" id="login1" style="display:none;"> 
-    <?php 
-    if(isset($error)){
-        echo $error;
-    } 
-    ?>
-</form>
+        <div class="container" id="password" style="display:none;">
+            <div class="ingput">
+                <input type="password" class="input" name="password" autocomplete="off">
+                <label for="input">Password</label>
+            </div>
+        </div>
+        <input type="submit" value="Login" name="login1" class="login" id="login1" style="display:none;"> 
+        <input type="submit" value="Login" name="login2" class="login" id="login2" style="display:none;"> 
+        <?php 
+        if(isset($error)){
+            echo $error;
+        } 
+        ?>
+    </form> 
+</div>
 <script>
     const inputFields = document.querySelectorAll('.ingput input');
     inputFields.forEach(inputField => {
