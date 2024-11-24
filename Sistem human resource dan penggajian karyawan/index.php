@@ -8,13 +8,13 @@
         $result = $db->query($sql);
         if($result->num_rows > 0){
             $data = $result->fetch_assoc();
-            $_SESSION["password"] = $data["password"];
-            if($data['password'] === 'admin'){ // passwordnya = admin
+            if($data['password'] == $password){ // passwordnya = admin
+                $_SESSION["password"] = $data["password"];
                 header('location: admin_dashboard.php');
                 exit(); 
             }
         }else{
-            $error = '<span class="error">password incorrect</span>';
+            $error = '<span class="error" id="error">password incorrect</span>';
         }
     }
     if(isset($_POST['login2'])){
@@ -30,10 +30,10 @@
                 header('location: karyawan_dashboard.php');
                 exit(); 
             }else{
-                $error = '<span class="error">token incorrect</span>';
+                $error = '<span class="error" id="error">token incorrect</span>';
             }
         }else{
-            $error = '<span class="error">number is not the employee list</span>';
+            $error = '<span class="error" id="error">number is not the employee list</span>';
         }
     }
 ?>
@@ -211,7 +211,7 @@
     .forms{
         display: flex;
         transition: all 0.3s;
-
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
     .forms:hover{
         transform: scale(1.02);
@@ -289,9 +289,10 @@
             token.style.display = 'block'; 
             telp.style.display = 'block';
             login.style.display = 'block'; 
-            token.classList.add('animasi'); 
+            token.classList.add('animasi');
+            telp.classList.add('animasi');  
             login.classList.add('animasi'); 
-            form.style.height = '500px';
+            form.style.height = '400px';
             input.setAttribute('required', 'required'); 
         }else{
             token.style.display = 'none'; 
@@ -321,7 +322,7 @@
             login.style.display = 'block'; 
             password.classList.add('animasi'); 
             login.classList.add('animasi'); 
-            form.style.height = '500px';    
+            form.style.height = '350px';    
             input.setAttribute('required', 'required'); 
         }else{
             password.style.display = 'none'; 
