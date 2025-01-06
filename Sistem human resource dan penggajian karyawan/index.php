@@ -8,13 +8,13 @@
         $result = $db->query($sql);
         if($result->num_rows > 0){
             $data = $result->fetch_assoc();
-            if($data['password'] == $password){ // passwordnya = admin
-                $_SESSION["password"] = $data["password"];
-                header('location: admin_dashboard.php');
+            $_SESSION["password"] = $data["password"];
+            if($data['password'] === 'admin'){ // passwordnya = admin
+                header('location: admin_view/admin_dashboard.php');
                 exit(); 
             }
         }else{
-            $error = '<span class="error" id="error">password incorrect</span>';
+            $error = '<span class="error">password incorrect</span>';
         }
     }
     if(isset($_POST['login2'])){
@@ -27,13 +27,13 @@
             $datak = $resultk->fetch_assoc();
             if($datak['token'] == $token){
                 $_SESSION["token"] = $datak["token"];
-                header('location: karyawan_dashboard.php');
+                header('location: karyawan_view/karyawan_dashboard.php');
                 exit(); 
             }else{
-                $error = '<span class="error" id="error">token incorrect</span>';
+                $error = '<span class="error">token incorrect</span>';
             }
         }else{
-            $error = '<span class="error" id="error">number is not the employee list</span>';
+            $error = '<span class="error">number is not the employee list</span>';
         }
     }
 ?>
@@ -211,7 +211,7 @@
     .forms{
         display: flex;
         transition: all 0.3s;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
     }
     .forms:hover{
         transform: scale(1.02);
@@ -252,7 +252,7 @@
         <input type="submit" value="Login" name="login2" class="login" id="login2" style="display:none;"> 
         <?php 
         if(isset($error)){
-            echo $error;
+            echo '<span id="error">' . $error . '</span>';
         } 
         ?>
     </form> 
@@ -269,7 +269,7 @@
         });
     });
     function guest(){
-        window.location.href = 'guest_dashboard.php';
+        window.location.href = 'guest_view/guest_dashboard.php';
     }
     function karyawan(){
         const token = document.getElementById('token');
@@ -289,17 +289,27 @@
             token.style.display = 'block'; 
             telp.style.display = 'block';
             login.style.display = 'block'; 
-            token.classList.add('animasi');
-            telp.classList.add('animasi');  
+            token.classList.add('animasi'); 
             login.classList.add('animasi'); 
-            form.style.height = '400px';
+            form.style.height = 'auto'; 
+            const sekebon = form.scrollHeight + 'px'; 
+            form.style.height = '350px'; 
+            setTimeout(() => {
+                form.style.height = sekebon; 
+                }, 100);
             input.setAttribute('required', 'required'); 
         }else{
             token.style.display = 'none'; 
             telp.style.display = 'none';
             login.style.display = 'none'; 
-            form.style.height = '350px';
-            input.removeAttribute('required'); 
+            form.style.height = form.scrollHeight;
+            setTimeout(() => {
+                form.style.height = '350px'; 
+                }, 100);
+            input.removeAttribute('required');  
+        }
+        if(error){
+        error.remove();
         }
     }
     function admin(){
@@ -322,13 +332,24 @@
             login.style.display = 'block'; 
             password.classList.add('animasi'); 
             login.classList.add('animasi'); 
-            form.style.height = '350px';    
+            form.style.height = 'auto';
+            const sekebon = form.scrollHeight + 'px'; 
+            form.style.height = '350px'; 
+            setTimeout(() => {
+                form.style.height = sekebon; 
+                }, 100);
             input.setAttribute('required', 'required'); 
         }else{
             password.style.display = 'none'; 
             login.style.display = 'none'; 
-            form.style.height = '350px';
-            input.removeAttribute('required'); 
+            form.style.height = form.scrollHeight;
+            setTimeout(() => {
+                form.style.height = '350px'; 
+                }, 100);
+            input.removeAttribute('required');  
+        }
+        if(error){
+        error.remove();
         }
     }
 </script>
