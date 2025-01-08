@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 18, 2024 at 01:42 PM
+-- Generation Time: Jan 08, 2025 at 10:30 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -72,7 +72,7 @@ INSERT INTO `gaji` (`id`, `nama`, `gaji-pokok`, `potongan`, `bonus`) VALUES
 CREATE TABLE `karyawan` (
   `id` int NOT NULL,
   `nama` varchar(250) NOT NULL,
-  `nomor-kontak` varchar(250) NOT NULL,
+  `nomortelp` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `jenis-kelamin` varchar(250) NOT NULL,
   `jabatan` varchar(250) NOT NULL,
   `token` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
@@ -82,8 +82,9 @@ CREATE TABLE `karyawan` (
 -- Dumping data for table `karyawan`
 --
 
-INSERT INTO `karyawan` (`id`, `nama`, `nomor-kontak`, `jenis-kelamin`, `jabatan`, `token`) VALUES
-(1, 'cole palmer', '+6285777380134', 'pria', 'boss', '250508');
+INSERT INTO `karyawan` (`id`, `nama`, `nomortelp`, `jenis-kelamin`, `jabatan`, `token`) VALUES
+(1, 'cole palmer', '+6285777380134', 'pria', 'boss', '250508'),
+(2, 'Nicolas JACKson', '+6286996372234', 'peria', 'Penasehat', '692233');
 
 -- --------------------------------------------------------
 
@@ -130,7 +131,7 @@ ALTER TABLE `gaji`
 ALTER TABLE `karyawan`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nama` (`nama`),
-  ADD UNIQUE KEY `nomor-kontak` (`nomor-kontak`),
+  ADD UNIQUE KEY `nomor-kontak` (`nomortelp`),
   ADD UNIQUE KEY `token` (`token`);
 
 --
@@ -160,7 +161,7 @@ ALTER TABLE `gaji`
 -- AUTO_INCREMENT for table `karyawan`
 --
 ALTER TABLE `karyawan`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
