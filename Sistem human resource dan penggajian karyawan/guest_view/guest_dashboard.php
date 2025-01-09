@@ -87,9 +87,9 @@
         <div id="sidebar" class="sidebar">
             <h2>Menu</h2>
             <ul>
-                <li><a href="">Dashboard</a></li>
+                <li><a href="#">Dashboard</a></li>
                 <li><a href="">Absensi</a></li>
-                <li><a href="">Karyawan</a></li>
+                <li><a href="guest_karyawan.php">Karyawan</a></li>
                 <li><a href="">Pendaftaran Kerja</a></li>
                 <li><a href=""></a></li>
             </ul>
