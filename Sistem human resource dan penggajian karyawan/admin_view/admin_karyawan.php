@@ -35,6 +35,40 @@
         .sidebar a{
             color: #fff;
             text-decoration: none;
+            transition: all .5s ease;
+        }
+        .sidebar a:hover{
+            font-size: 1.4rem;
+            color: #51eefc;
+            animation: glow 1.5s infinite;
+        }
+        @keyframes glow{
+            0%{
+                text-shadow: 0 0 10px rgba(255, 255, 255, 2);
+            }
+            50%{
+                text-shadow: 0 0 20px rgba(255, 255, 255, 5);
+            }
+            100%{
+                text-shadow: 0 0 10px rgba(255, 255, 255, 2);
+            }
+        }
+        .sidebar ul li:nth-child(3) a{
+            color: #51eefc;
+        }
+        .sidebar ul li:nth-child(3) a:hover{
+            animation: w 1.5s infinite;
+        }
+        @keyframes w{
+            0%{
+                text-shadow: 0 0 10px rgb(32, 32, 255);
+            }
+            50%{
+                text-shadow: 0 0 20px rgb(32, 32, 255);
+            }
+            100%{
+                text-shadow: 0 0 10px rgb(32, 32, 255);
+            }
         }
         .main{
             flex: 1;
@@ -46,6 +80,7 @@
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
+            display: flex;
         }
         .dashboardj .kotak{
             display: inline-block;
@@ -59,13 +94,14 @@
         }
         .sidebar{
             width: 200px; 
-            transition: width 0.3s ease; 
+            transition: all 0.3s ease; 
         }
-        .sidebar.closed {
+        .sidebar.closed{
             width: 0px;
+            padding-left: 25px;
             margin-left: -50px;
-            transition: width 0.3s ease; 
-
+            margin-top: -350px;
+            transition: all 0.3s ease; 
         }
         .navbar{
             background-color: #6d9ac7;
@@ -105,6 +141,9 @@
         .delete:hover {
             background-color: #ff1a1a; 
         }
+        .jk{
+            color: #303030;
+        }
     </style>
 </head>
 <body>
@@ -131,8 +170,23 @@
         </div>
             <h1>Karyawan</h1>
             <div class="dashboardj">
-                <div class="kotak">nigga 1</div>
-                <div class="kotak">nigga 2</div>
+                <div class="kotak">       
+                    <?php
+                    include('../database.php');
+                    $sql = "SELECT COUNT(*) FROM karyawan";
+                    $result=$db->query($sql);
+                    if($result->num_rows>0){
+                        while($row = $result->fetch_assoc()){
+                            echo '<span class=jk>Jumlah Karyawan : </span>' .'<br>' .$row['COUNT(*)'];
+                        }
+                    }
+                    ?>
+                </div>
+                <div class="kotak">
+                    <?php 
+                    echo '<span class=jk>Tanggal : </span>'. '<br>'.date('Y-m-d');
+                    ?>
+                </div>
                 <div class="kotak">nigga 3</div>
             </div>
             <table>
