@@ -31,6 +31,12 @@
         .sidebar li{
             padding: 10px 0;
             border-bottom: 1px solid #555;
+            transform: translateX(-5px);
+            transition: all 0.3s ease;
+        }
+        .sidebar li:hover {
+            border-bottom: 1px solid #fff; 
+            transform: translateX(0);
         }
         .sidebar a{
             color: #fff;
