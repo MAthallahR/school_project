@@ -1,11 +1,11 @@
 <?php
-include 'database.php';
+include '../database.php';
 
 if(isset($_POST['id'])){
     $id = $_POST['id']; 
 
     $sql = $db->prepare("DELETE FROM karyawan WHERE nama = ?");
-    $sql->bind_param("i", $id);
+    $sql->bind_param("s", $id);
 
     if($sql->execute()){
         echo "data successfully deleted";
