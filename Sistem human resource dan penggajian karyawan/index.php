@@ -27,6 +27,7 @@
             $datak = $resultk->fetch_assoc();
             if($datak['token'] == $token){
                 $_SESSION["token"] = $datak["token"];
+                $_SESSION["nama"] = $datak["nama"];
                 header('location: karyawan_view/karyawan_dashboard.php');
                 exit(); 
             }else{
