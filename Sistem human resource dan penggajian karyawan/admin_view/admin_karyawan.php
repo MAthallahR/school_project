@@ -221,8 +221,9 @@
                             </form>
                         </td>
                     </tr>";   
-                }                 
-                      
+                }                      
+            }else{
+                echo "<tr><td colspan='6'>tidak ada karyawan</td></tr>";
             }
             ?>
             </table>
