@@ -1,24 +1,3 @@
-<?php 
-    include("../database.php");
-    $nama = [];
-    $sqlnama = "SELECT nama from karyawan ORDER BY id ASC";
-    $resultnama=$db->query($sqlnama);
-    if($resultnama->num_rows>0){
-        while($rownama=$resultnama->fetch_assoc()){
-            $nama[] = $rownama['nama'];
-        }
-    }
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        $namaaa='';
-        $absencestatus='';
-        if(isset($_POST['nama'])){
-            $namaaa = $_POST['nama'];
-        }
-        if(isset($_POST['absencestatus'])){
-            $absencestatus = $_POST['absencestatus'];
-        }
-    }
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -194,7 +173,7 @@
             <a href="../logout.php" class="logout" onclick="return confirm('Apakah Anda yakin ingin logout?')">Logout</a>
           </div>
         </div>
-            <h1>Karyawan</h1>
+            <h1>Absensi</h1>
             <div class="dashboardj">
                 <div class="kotak">       
                     <?php
@@ -215,24 +194,40 @@
                 </div>  
                 <div class="kotak">nigga 3</div>
             </div>
-            <form action="" method="POST">
-                <select name="" id="" required>
-                    <option value="Nama" disabled selected hidden>Namamu</option>
-                    <?php
-                        foreach($nama as $namaa){
-                            $selected = ($namaa == $naamaaa) ? 'selected' : '';
-                            echo '<option value="'.$namaa.'">'.$namaa.'</option>';
-                        }
-                    ?>
-                </select>
-                <?php 
-                if($namaa){
-                    echo "tes";
-                }
-                ?>
-                
-            </form>
-            
+            <table>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Keterangan</th>
+                    <th>Absen Pada</th>
+                    <th>Keluar Pada</th>
+                    <th>Actions</th>
+                </tr>
+            <?php 
+            include('../database.php');
+            $sql = "SELECT id, nama, keterangan, absen_pada	, keluar_pada from absensi";
+            $result = $db->query($sql);
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    echo "<tr>
+                        <td>" . ucfirst($row['id']) . "</td>
+                        <td>" . ucfirst($row['nama']) . "</td>
+                        <td>" . ucfirst($row['keterangan']) . "</td>
+                        <td>" . ucfirst($row['absen_pada']) . "</td>
+                        <td>" . ucfirst($row['keluar_pada']) . "</td>
+                        <td>
+                            <form action='delete_absensi.php' method='post' style='display:inline;'>
+                                    <input type='hidden' name='id' value='{$row['nama']}'>
+                                <input type='submit' value='Delete' class='delete' onclick='return confirm(\"Are you sure you want to delete this record?\");'>
+                            </form>
+                        </td>
+                    </tr>";   
+                }      
+            }else{
+                echo "<tr><td colspan='6'>tidak ada yang absen</td></tr>";
+            }
+            ?>
+            </table>            
         </div>
     </div>
     <script>
