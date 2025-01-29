@@ -156,6 +156,25 @@ if(!isset($_SESSION['nama'])){
         .jk{
             color: #303030;
         }
+        .tombol-absen{
+            padding-right:100px
+        }
+        .absen{
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .absen:hover{
+            background-color: #3e8e41;
+        }
+        .absen:disabled{
+            background-color: #ccc;
+            color: #666;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -199,7 +218,17 @@ if(!isset($_SESSION['nama'])){
                     echo '<span class=jk>Tanggal : </span>'. '<br>'.date('Y-m-d');
                     ?>
                 </div>  
-                <div class="kotak">nigga 3</div>
+                <div class="kotak">
+                    <?php 
+                    $sqlabsen = "SELECT COUNT(*) FROM absensi";
+                    $resultabsen = $db->query($sqlabsen);
+                    if($resultabsen->num_rows>0){
+                        while($rowabsen = $resultabsen->fetch_assoc()){
+                            echo '<span class=jk>Jumlah Absensi : </span>' .'<br>' .$rowabsen['COUNT(*)'];   
+                        }
+                    }
+                    ?>
+                </div>
             </div>
             <table>
                 <tr>
@@ -209,10 +238,16 @@ if(!isset($_SESSION['nama'])){
                     <th>Absen Pada</th>
                     <th>Keluar Pada</th>
                 </tr>
-                <form action='absen.php' method='post' style='display:inline;'>
-                <input type='hidden' name='nama' value='<?php $_SESSION['nama']; ?>'>
-                <input type='submit' value='Absen' class='absen'> 
-            </form>
+                <div class="tombol-absen">
+                    <form action='absen.php' method='post' style='display:inline;'>
+                        <input type='hidden' name='nama' value='<?php $_SESSION['nama']; ?>'>
+                        <input type='submit' value='Absen' class='absen' id="absen-submit"> 
+                    </form>
+                    <form action='absen.php' method='post' style='display:inline;'>
+                        <input type='hidden' name='nama' value='<?php echo $_SESSION['nama']; ?>'>
+                        <input type='submit' value='Keluar' class='absen' id="keluar-submit" name="keluar" disabled> 
+                    </form>
+                </div>
             <?php 
             include('../database.php');
             
@@ -242,6 +277,13 @@ if(!isset($_SESSION['nama'])){
         sidebarToggle.addEventListener('click', () => {
             sidebar.classList.toggle('closed'); 
         });
+        <?php if (isset($_SESSION['absen']) && $_SESSION['absen']) { ?>
+            document.getElementById("absen-submit").disabled = true;
+            document.getElementById("keluar-submit").disabled = false;
+            document.getElementById("absen-submit").value = "ANDA SUDAH ABSEN!";
+        <?php } ?>
+
+
     </script>
 </body>
 </html>
