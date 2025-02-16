@@ -143,7 +143,7 @@
         cursor: pointer;
         transition: background-color 0.3s;
         }
-        .delete:hover {
+        .delete:hover{
             background-color: #ff1a1a; 
         }
         .jk{
