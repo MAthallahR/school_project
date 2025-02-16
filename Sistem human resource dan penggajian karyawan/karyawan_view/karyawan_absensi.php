@@ -185,8 +185,7 @@ if(!isset($_SESSION['nama'])){
                 <li><a href="karyawan_dashboard.php">Dashboard</a></li>
                 <li><a href="#">Absensi</a></li>
                 <li><a href="karyawan_karyawan.php">Karyawan</a></li>
-                <li><a href="">Pendaftaran Kerja</a></li>
-                <li><a href=""></a></li>
+                <li><a href="">Cetak slip gaji</a></li>
             </ul>
         </div>
         <div class="main">
@@ -235,6 +234,7 @@ if(!isset($_SESSION['nama'])){
                     <th>No</th>
                     <th>Nama</th>
                     <th>Keterangan</th>
+                    <th>Tanggal</th>
                     <th>Absen Pada</th>
                     <th>Keluar Pada</th>
                 </tr>
@@ -251,7 +251,7 @@ if(!isset($_SESSION['nama'])){
             <?php 
             include('../database.php');
             
-            $sql = "SELECT id, nama, keterangan, absen_pada	, keluar_pada from absensi";
+            $sql = "SELECT id, nama, keterangan, tanggal, absen_pada, keluar_pada from absensi";
             $result = $db->query($sql);
             if($result->num_rows > 0){
                 while($row = $result->fetch_assoc()){
@@ -259,6 +259,7 @@ if(!isset($_SESSION['nama'])){
                         <td>" . ucfirst($row['id']) . "</td>
                         <td>" . ucfirst($row['nama']) . "</td>
                         <td>" . ucfirst($row['keterangan']) . "</td>
+                        <td>" . ($row['tanggal']) . "</td>
                         <td>" . ($row['absen_pada']) . "</td>
                         <td>" . ($row['keluar_pada']) . "</td>
                     </tr>";   
