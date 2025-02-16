@@ -154,13 +154,13 @@
 <body>
     <div class="container">
         <div id="sidebar" class="sidebar">
-            <h2>Menu</h2>
+            <h2><a href="admin_dashboard.php">Menu</a></h2>
             <ul>
                 <li><a href="admin_dashboard.php">Dashboard</a></li>
-                <li><a href="">Absensi</a></li>
-                <li><a href="#">Karyawan</a></li>
-                <li><a href="">Pendaftaran Kerja</a></li>
-                <li><a href=""></a></li>
+                <li><a href="#">Absensi</a></li>
+                <li><a href="admin_karyawan.php">Karyawan</a></li>
+                <li><a href="admin_dafker.php">Pendaftaran Kerja</a></li>
+                <li><a href="">Cetak slip gaji</a></li>
             </ul>
         </div>
         <div class="main">
@@ -213,8 +213,8 @@
                         <td>" . ucfirst($row['id']) . "</td>
                         <td>" . ucfirst($row['nama']) . "</td>
                         <td>" . ucfirst($row['keterangan']) . "</td>
-                        <td>" . ucfirst($row['absen_pada']) . "</td>
-                        <td>" . ucfirst($row['keluar_pada']) . "</td>
+                        <td>" . ($row['absen_pada']) . "</td>
+                        <td>" . ($row['keluar_pada']) . "</td>
                         <td>
                             <form action='delete_absensi.php' method='post' style='display:inline;'>
                                     <input type='hidden' name='id' value='{$row['nama']}'>
