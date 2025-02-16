@@ -139,10 +139,9 @@ if(!isset($_SESSION['nama'])){
             <h2>Menu</h2>
             <ul>
                 <li><a href="#">Dashboard</a></li>
-                <li><a href="">Absensi</a></li>
+                <li><a href="karyawan_absensi.php">Absensi</a></li>
                 <li><a href="karyawan_karyawan.php">Karyawan</a></li>
-                <li><a href="">Pendaftaran Kerja</a></li>
-                <li><a href=""></a></li>
+                <li><a href="">Cetak slip gaji</a></li>
             </ul>
         </div>
         <div class="main">
@@ -174,7 +173,17 @@ if(!isset($_SESSION['nama'])){
                     echo '<span class=jk>Tanggal : </span>'. '<br>'.date('Y-m-d');
                     ?>
                 </div>
-                <div class="kotak">nigga 3</div>
+                <div class="kotak">
+                    <?php 
+                    $sqlabsen = "SELECT COUNT(*) FROM absensi";
+                    $resultabsen = $db->query($sqlabsen);
+                    if($resultabsen->num_rows>0){
+                        while($rowabsen = $resultabsen->fetch_assoc()){
+                            echo '<span class=jk>Jumlah Absensi : </span>' .'<br>' .$rowabsen['COUNT(*)'];   
+                        }
+                    }
+                    ?>
+                </div>
             </div>
         </div>
     </div>
