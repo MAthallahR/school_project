@@ -132,10 +132,9 @@
             <h2>Menu</h2>
             <ul>
                 <li><a href="#">Dashboard</a></li>
-                <li><a href="">Absensi</a></li>
+                <li><a href="guest_absensi.php">Absensi</a></li>
                 <li><a href="guest_karyawan.php">Karyawan</a></li>
-                <li><a href="">Pendaftaran Kerja</a></li>
-                <li><a href=""></a></li>
+                <li><a href="guest_daftar.php">Pendaftaran Kerja</a></li>
             </ul>
         </div>
         <div class="main">
