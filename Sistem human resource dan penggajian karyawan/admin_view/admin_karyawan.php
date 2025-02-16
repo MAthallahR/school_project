@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -144,8 +143,20 @@
         cursor: pointer;
         transition: background-color 0.3s;
         }
-        .delete:hover {
+        .delete:hover{
             background-color: #ff1a1a; 
+        }
+        .edit{
+        background-color:rgb(77, 213, 255);
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        }
+        .edit:hover {
+            background-color:rgb(26, 240, 255); 
         }
         .jk{
             color: #303030;
@@ -158,10 +169,10 @@
             <h2>Menu</h2>
             <ul>
                 <li><a href="admin_dashboard.php">Dashboard</a></li>
-                <li><a href="">Absensi</a></li>
+                <li><a href="admin_absensi.php">Absensi</a></li>
                 <li><a href="#">Karyawan</a></li>
-                <li><a href="">Pendaftaran Kerja</a></li>
-                <li><a href=""></a></li>
+                <li><a href="admin_dafker.php">Pendaftaran Kerja</a></li>
+                <li><a href="">Cetak slip gaji</a></li>
             </ul>
         </div>
         <div class="main">
@@ -216,8 +227,12 @@
                         <td>" . ucfirst($row['jabatan']) . "</td>
                         <td>
                             <form action='delete_karyawan.php' method='post' style='display:inline;'>
-                                    <input type='hidden' name='id' value='{$row['nama']}'>
+                                <input type='hidden' name='id' value='{$row['nama']}'>
                                 <input type='submit' value='Delete' class='delete' onclick='return confirm(\"Are you sure you want to delete this record?\");'>
+                            </form>
+                            <form action='edit_karyawan.php' method='post' style='display:inline;'>
+                                <input type='hidden' name='id' value='{$row['nama']}'>
+                                <input type='submit' value='Edit' class='edit'>
                             </form>
                         </td>
                     </tr>";   
