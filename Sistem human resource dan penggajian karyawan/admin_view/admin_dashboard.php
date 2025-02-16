@@ -132,10 +132,10 @@
             <h2>Menu</h2>
             <ul>
                 <li><a href="#">Dashboard</a></li>
-                <li><a href="">Absensi</a></li>
+                <li><a href="admin_absensi.php">Absensi</a></li>
                 <li><a href="admin_karyawan.php">Karyawan</a></li>
-                <li><a href="">Pendaftaran Kerja</a></li>
-                <li><a href=""></a></li>
+                <li><a href="admin_dafker.php">Pendaftaran Kerja</a></li>
+                <li><a href="">Cetak slip gaji</a></li>
             </ul>
         </div>
         <div class="main">
