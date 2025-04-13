@@ -162,10 +162,11 @@ if(!isset($_SESSION['nama'])){
         .absen{
             background-color: #4CAF50;
             color: #fff;
-            padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            padding: 8px 12px;
+            margin: 0 5px;
         }
         .absen:hover{
             background-color: #3e8e41;
@@ -174,6 +175,10 @@ if(!isset($_SESSION['nama'])){
             background-color: #ccc;
             color: #666;
             cursor: not-allowed;
+        }
+        input[type="text"] {
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -231,44 +236,52 @@ if(!isset($_SESSION['nama'])){
             </div>
             <table>
                 <tr>
-                    <th>No</th>
                     <th>Nama</th>
                     <th>Keterangan</th>
                     <th>Tanggal</th>
                     <th>Absen Pada</th>
                     <th>Keluar Pada</th>
+                    <th>Alasan Izin</th>
                 </tr>
+
                 <div class="tombol-absen">
                     <form action='absen.php' method='post' style='display:inline;'>
-                        <input type='hidden' name='nama' value='<?php $_SESSION['nama']; ?>'>
-                        <input type='submit' value='Absen' class='absen' id="absen-submit"> 
+                        <input type='hidden' name='nama' value='<?php echo $_SESSION['nama']; ?>'>
+                        <input type='submit' value='Absen' class='absen' name="absen"> 
                     </form>
                     <form action='absen.php' method='post' style='display:inline;'>
                         <input type='hidden' name='nama' value='<?php echo $_SESSION['nama']; ?>'>
-                        <input type='submit' value='Keluar' class='absen' id="keluar-submit" name="keluar" disabled> 
+                        <input type='submit' value='Keluar' class='absen' name="keluar" <?php echo (isset($_SESSION['absen'])) ? '' : 'disabled'; ?>> 
                     </form>
-                </div>
-            <?php 
-            include('../database.php');
-            
-            $sql = "SELECT id, nama, keterangan, tanggal, absen_pada, keluar_pada from absensi";
-            $result = $db->query($sql);
-            if($result->num_rows > 0){
-                while($row = $result->fetch_assoc()){
-                    echo "<tr>
-                        <td>" . ucfirst($row['id']) . "</td>
-                        <td>" . ucfirst($row['nama']) . "</td>
-                        <td>" . ucfirst($row['keterangan']) . "</td>
-                        <td>" . ($row['tanggal']) . "</td>
-                        <td>" . ($row['absen_pada']) . "</td>
-                        <td>" . ($row['keluar_pada']) . "</td>
-                    </tr>";   
-                }      
-            }else{
-                echo "<tr><td colspan='6'>tidak ada yang absen</td></tr>";
-            }
-            ?>
-            </table>            
+                    <form action='absen.php' method='post' style='display:inline;'>
+                        <input type='hidden' name='nama' value='<?php echo $_SESSION['nama']; ?>'>
+                        <input type='submit' value='Sakit' class='absen' name="sakit" style="background-color:rgb(255, 0, 0); margin-left:1083px;">
+                        <input type='submit' value='Izin' class='absen' name="izin" style="background-color: #9370DB;">
+                        <input type='text' name="alasan" placeholder="Alasan izin..." required style="padding: 5px;">
+                    </form>
+                </div>          
+
+                <?php
+                $today = date("Y-m-d");
+                $sql = "SELECT * FROM absensi WHERE tanggal = '$today'";
+                $result = $db->query($sql);         
+
+                if($result->num_rows > 0){
+                    while($row = $result->fetch_assoc()){
+                        echo "<tr>
+                            <td>".ucfirst($row['nama'])."</td>
+                            <td>".ucfirst($row['keterangan'])."</td>
+                            <td>".$row['tanggal']."</td>
+                            <td>".$row['absen_pada']."</td>
+                            <td>".$row['keluar_pada']."</td>
+                            <td>".($row['alasan'] ?? '-')."</td>
+                        </tr>";   
+                    }      
+                } else {
+                    echo "<tr><td colspan='6'>Tidak ada absen hari ini</td></tr>";
+                }
+                ?>
+            </table>
         </div>
     </div>
     <script>
