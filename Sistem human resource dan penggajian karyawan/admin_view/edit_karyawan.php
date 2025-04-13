@@ -114,23 +114,23 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
         <form method="POST">
             <input type="hidden" name="ognama" value="<?php echo ucfirst($row['nama']); ?>">
             
-            <label>Name:</label>
+            <label>Nama :</label>
             <input type="text" name="nama" value="<?php echo ucfirst($row['nama']); ?>" required>
             
-            <label>Phone Number:</label>
+            <label>Nomor Telpon	:</label>
             <input type="text" name="nomortelp" value="<?php echo ucfirst($row['nomortelp']); ?>" required>
             
-            <label>Gender:</label>
+            <label>Jenis Kelamin :</label>
             <select name="jenis_kelamin" required>
                 <option value="laki" <?php echo ($row['jenis_kelamin'] == 'Laki') ? 'selected' : ''; ?>>Laki</option>
                 <option value="perempuan" <?php echo ($row['jenis_kelamin'] == 'Perempuan') ? 'selected' : ''; ?>>Perempuan</option>
                 <option value="binatang" <?php echo ($row['jenis_kelamin'] == 'Monyet') ? 'selected' : ''; ?>>Monyet    </option>
             </select>
             
-            <label>Position:</label>
+            <label>Jabatan :</label>
             <input type="text" name="jabatan" value="<?php echo ucfirst($row['jabatan']); ?>" required>
             
-            <button type="submit" name="update">Update row</button>
+            <button type="submit" name="update">Edit</button>
             <a href="admin_karyawan.php" class="cancel-btn">Cancel</a>
         </form>
     </div>
