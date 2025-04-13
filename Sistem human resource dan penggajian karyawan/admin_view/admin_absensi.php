@@ -196,38 +196,41 @@
             </div>
             <table>
                 <tr>
-                    <th>No</th>
                     <th>Nama</th>
                     <th>Keterangan</th>
+                    <th>Tanggal</th>
                     <th>Absen Pada</th>
                     <th>Keluar Pada</th>
-                    <th>Actions</th>
+                    <th>Alasan Izin</th>
+                    <th>Action</th>
                 </tr>
-            <?php 
-            include('../database.php');
-            $sql = "SELECT id, nama, keterangan, absen_pada	, keluar_pada from absensi";
-            $result = $db->query($sql);
-            if($result->num_rows > 0){
-                while($row = $result->fetch_assoc()){
-                    echo "<tr>
-                        <td>" . ucfirst($row['id']) . "</td>
-                        <td>" . ucfirst($row['nama']) . "</td>
-                        <td>" . ucfirst($row['keterangan']) . "</td>
-                        <td>" . ($row['absen_pada']) . "</td>
-                        <td>" . ($row['keluar_pada']) . "</td>
-                        <td>
-                            <form action='delete_absensi.php' method='post' style='display:inline;'>
-                                    <input type='hidden' name='id' value='{$row['nama']}'>
-                                <input type='submit' value='Delete' class='delete' onclick='return confirm(\"Are you sure you want to delete this record?\");'>
-                            </form>
+                <?php
+                $today = date("Y-m-d");
+                $sql = "SELECT * FROM absensi WHERE tanggal = '$today'";
+                $result = $db->query($sql);     
+                            
+                if($result->num_rows > 0){
+                    while($row = $result->fetch_assoc()){
+                        echo "<tr>
+                            <td>".ucfirst($row['nama'])."</td>
+                            <td>".ucfirst($row['keterangan'])."</td>
+                            <td>".$row['tanggal']."</td>
+                            <td>".$row['absen_pada']."</td>
+                            <td>".$row['keluar_pada']."</td>
+                            <td>".($row['alasan'] ?? '-')."</td>
+                            <td>
+                                <form action='delete_absensi.php' method='post' style='display:inline;'>
+                                        <input type='hidden' name='id' value='{$row['nama']}'>
+                                    <input type='submit' value='Delete' class='delete' onclick='return confirm(\"Are you sure you want to delete this record?\");'>
+                                </form>
                         </td>
-                    </tr>";   
-                }      
-            }else{
-                echo "<tr><td colspan='6'>tidak ada yang absen</td></tr>";
-            }
-            ?>
-            </table>            
+                        </tr>";   
+                    }      
+                } else {
+                    echo "<tr><td colspan='6'>Tidak ada absen hari ini</td></tr>";
+                }
+                ?>
+            </table>
         </div>
     </div>
     <script>
